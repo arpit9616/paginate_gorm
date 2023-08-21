@@ -1,4 +1,4 @@
-# paginate - Gorm Pagination
+# paginate_gorm - Gorm Pagination Library
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/arpit9616/paginate)](https://github.com/arpit9616/paginate/releases)
 

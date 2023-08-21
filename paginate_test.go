@@ -1,4 +1,4 @@
-package paginate
+package paginate_gorm
 
 import (
 	"bytes"

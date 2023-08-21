@@ -1,4 +1,4 @@
-module github.com/arpit9616/paginate
+module github.com/arpit9616/paginate_gorm
 
 go 1.16
 
