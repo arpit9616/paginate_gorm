@@ -1,4 +1,5 @@
-# paginate_gorm - Gorm Pagination Library
+# paginate_gorm
+<small>Gorm pagination library</small>
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/arpit9616/paginate)](https://github.com/arpit9616/paginate/releases)
 
@@ -37,7 +38,7 @@ Simple way to paginate [Gorm](https://github.com/go-gorm/gorm) result. **paginat
 ## Installation
 
 ```bash
-go get -u github.com/morkid/paginate
+go get -u github.com/arpit9616/paginate
 ```
 
 ## Configuration
@@ -869,4 +870,4 @@ type User struct {
 
 ## License
 
-Published under the [MIT License](https://github.com/morkid/paginate/blob/master/LICENSE).
+Published under the [MIT License](https://github.com/arpit9616/paginate/blob/main/LICENSE).
