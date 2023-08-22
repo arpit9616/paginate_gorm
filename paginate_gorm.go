@@ -20,6 +20,28 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
+var dataTypesList []string = []string{
+	"bigint",
+	"bit",
+	"bit varying",
+	"boolean",
+	"char",
+	"character varying",
+	"character",
+	"varchar",
+	"date",
+	"double precision",
+	"integer",
+	"interval",
+	"numeric",
+	"decimal",
+	"real",
+	"smallint",
+	"time",
+	"timestamp",
+	"xml",
+}
+
 // ResponseContext interface
 type ResponseContext interface {
 	Cache(string) ResponseContext
@@ -317,10 +339,14 @@ func createCauses(p pageRequest) requestQuery {
 	wheres, params := generateWhereCauses(p.Filters, p.Config)
 	sorts := []sortOrder{}
 
+	castRegexPattern := fmt.Sprintf(`^CAST\("([a-zA-Z0-9._]+)" AS (%s)\)$`, strings.Join(dataTypesList, "|"))
+
 	for _, so := range p.Sorts {
 		so.Column = fieldName(so.Column)
 		if nil != p.Config.Statement {
-			so.Column = p.Config.Statement.Quote(so.Column)
+			if match, _ := regexp.MatchString(castRegexPattern, so.Column); !match {
+				so.Column = p.Config.Statement.Quote(so.Column)
+			}
 		}
 		sorts = append(sorts, so)
 	}
@@ -452,9 +478,20 @@ func parsingQueryString(param *parameter, p *pageRequest) {
 				continue
 			}
 
+			direction := "ASC"
+			if string(col[0]) == "-" {
+				col = string(col[1:])
+				direction = "DESC"
+			}
+
+			colParts := strings.Split(col, "::")
+			if len(colParts) == 2 && contains(dataTypesList, strings.ToLower(colParts[1])) {
+				col = fmt.Sprintf(`CAST("%s" AS %s)`, colParts[0], strings.ToLower(colParts[1]))
+			}
+
 			so := sortOrder{
 				Column:    col,
-				Direction: "ASC",
+				Direction: direction,
 			}
 			if strings.ToUpper(param.Order) == "DESC" {
 				so.Direction = "DESC"
