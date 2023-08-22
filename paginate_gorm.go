@@ -339,7 +339,7 @@ func createCauses(p pageRequest) requestQuery {
 	wheres, params := generateWhereCauses(p.Filters, p.Config)
 	sorts := []sortOrder{}
 
-	castRegexPattern := fmt.Sprintf(`CAST\("([a-zA-Z0-9._]+)" as (%s)\)`, strings.Join(dataTypesList, "|"))
+	castRegexPattern := fmt.Sprintf(`^CAST\("([a-zA-Z0-9._]+)" AS (%s)\)$`, strings.Join(dataTypesList, "|"))
 
 	for _, so := range p.Sorts {
 		so.Column = fieldName(so.Column)
@@ -478,6 +478,12 @@ func parsingQueryString(param *parameter, p *pageRequest) {
 				continue
 			}
 
+			direction := "ASC"
+			if string(col[0]) == "-" {
+				col = string(col[1:])
+				direction = "DESC"
+			}
+
 			colParts := strings.Split(col, "::")
 			if len(colParts) == 2 && contains(dataTypesList, strings.ToLower(colParts[1])) {
 				col = fmt.Sprintf(`CAST("%s" AS %s)`, colParts[0], strings.ToLower(colParts[1]))
@@ -485,7 +491,7 @@ func parsingQueryString(param *parameter, p *pageRequest) {
 
 			so := sortOrder{
 				Column:    col,
-				Direction: "ASC",
+				Direction: direction,
 			}
 			if strings.ToUpper(param.Order) == "DESC" {
 				so.Direction = "DESC"
