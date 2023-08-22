@@ -20,6 +20,28 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
+var dataTypesList []string = []string{
+	"bigint",
+	"bit",
+	"bit varying",
+	"boolean",
+	"char",
+	"character varying",
+	"character",
+	"varchar",
+	"date",
+	"double precision",
+	"integer",
+	"interval",
+	"numeric",
+	"decimal",
+	"real",
+	"smallint",
+	"time",
+	"timestamp",
+	"xml",
+}
+
 // ResponseContext interface
 type ResponseContext interface {
 	Cache(string) ResponseContext
