@@ -1,14 +1,14 @@
 # paginate_gorm
 <small>Gorm pagination library</small>
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/arpit9616/paginate)](https://github.com/arpit9616/paginate/releases)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/arpit9616/paginate_gorm)](https://github.com/arpit9616/paginate_gorm/releases)
 
-Simple way to paginate [Gorm](https://github.com/go-gorm/gorm) result. **paginate** is compatible with [net/http](https://golang.org/pkg/net/http/) and [fasthttp](https://github.com/valyala/fasthttp). This library also supports many frameworks are based on net/http or fasthttp.
+Simple way to paginate_gorm [Gorm](https://github.com/go-gorm/gorm) result. **paginate_gorm** is compatible with [net/http](https://golang.org/pkg/net/http/) and [fasthttp](https://github.com/valyala/fasthttp). This library also supports many frameworks are based on net/http or fasthttp. Slightly improved version of [morkid/paginate](https://github.com/morkid/paginate).
 
 ## Table Of Contents
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Paginate using http request](#paginate-using-http-request)
+- [Paginate using http request](#paginate_gorm-using-http-request)
 - [Example usage](#example-usage)
   - [net/http](#nethttp-example)
   - [Fasthttp](#fasthttp-example)
@@ -38,7 +38,7 @@ Simple way to paginate [Gorm](https://github.com/go-gorm/gorm) result. **paginat
 ## Installation
 
 ```bash
-go get -u github.com/arpit9616/paginate
+go get -u github.com/arpit9616/paginate_gorm
 ```
 
 ## Configuration
@@ -50,7 +50,7 @@ var req *http.Request = ...
 // var req *fasthttp.Request
 
 model := db.Where("id > ?", 1).Model(&Article{})
-pg := paginate.New()
+pg := paginate_gorm.New()
 page := pg.Response(model, req, &[]Article{})
 // or 
 page := pg.With(model).Request(req).Response(&[]Article{})
@@ -61,9 +61,9 @@ log.Println(page.First)
 log.Println(page.Last)
 
 ```
-you can customize config with `paginate.Config` struct.  
+you can customize config with `paginate_gorm.Config` struct.  
 ```go
-pg := paginate.New(&paginate.Config{
+pg := paginate_gorm.New(&paginate_gorm.Config{
     DefaultSize: 50,
 })
 ```
@@ -162,13 +162,13 @@ example paging, sorting and filtering:
 package main
 
 import (
-    "github.com/arpit9616/paginate"
+    "github.com/arpit9616/paginate_gorm"
     ...
 )
 
 func main() {
     // var db *gorm.DB
-    pg := paginate.New()
+    pg := paginate_gorm.New()
 
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         model := db.Joins("User").Model(&Article{})
@@ -188,13 +188,13 @@ func main() {
 package main
 
 import (
-    "github.com/arpit9616/paginate"
+    "github.com/arpit9616/paginate_gorm"
     ...
 )
 
 func main() {
     // var db *gorm.DB
-    pg := paginate.New()
+    pg := paginate_gorm.New()
 
     fasthttp.ListenAndServe(":3000", func(ctx *fasthttp.RequestCtx) {
         model := db.Joins("User").Model(&Article{})
@@ -211,13 +211,13 @@ func main() {
 package main
 
 import (
-    "github.com/arpit9616/paginate"
+    "github.com/arpit9616/paginate_gorm"
     ...
 )
 
 func main() {
     // var db *gorm.DB
-    pg := paginate.New()
+    pg := paginate_gorm.New()
     app := mux.NewRouter()
     app.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
         model := db.Joins("User").Model(&Article{})
@@ -237,13 +237,13 @@ func main() {
 package main
 
 import (
-    "github.com/arpit9616/paginate"
+    "github.com/arpit9616/paginate_gorm"
     ...
 )
 
 func main() {
     // var db *gorm.DB
-    pg := paginate.New()
+    pg := paginate_gorm.New()
     app := fiber.New()
     app.Get("/", func(c *fiber.Ctx) error {
         model := db.Joins("User").Model(&Article{})
@@ -260,13 +260,13 @@ func main() {
 package main
 
 import (
-    "github.com/arpit9616/paginate"
+    "github.com/arpit9616/paginate_gorm"
     ...
 )
 
 func main() {
     // var db *gorm.DB
-    pg := paginate.New()
+    pg := paginate_gorm.New()
     app := echo.New()
     app.GET("/", func(c echo.Context) error {
         model := db.Joins("User").Model(&Article{})
@@ -283,13 +283,13 @@ func main() {
 package main
 
 import (
-    "github.com/arpit9616/paginate"
+    "github.com/arpit9616/paginate_gorm"
     ...
 )
 
 func main() {
     // var db *gorm.DB
-    pg := paginate.New()
+    pg := paginate_gorm.New()
     app := gin.Default()
     app.GET("/", func(c *gin.Context) {
         model := db.Joins("User").Model(&Article{})
@@ -306,13 +306,13 @@ func main() {
 package main
 
 import (
-    "github.com/arpit9616/paginate"
+    "github.com/arpit9616/paginate_gorm"
     ...
 )
 
 func main() {
     // var db *gorm.DB
-    pg := paginate.New()
+    pg := paginate_gorm.New()
     app := martini.Classic()
     app.Use(render.Renderer())
     app.Get("/", func(req *http.Request, r render.Render) {
@@ -328,13 +328,13 @@ func main() {
 package main
 
 import (
-    "github.com/arpit9616/paginate"
+    "github.com/arpit9616/paginate_gorm"
     ...
 )
 
 func main() {
     // var db *gorm.DB
-    pg := paginate.New()
+    pg := paginate_gorm.New()
     web.Get("/", func(c *context.Context) {
         model := db.Joins("User").Model(&Article{})
         c.Output.JSON(
@@ -523,10 +523,10 @@ For `null` value, you can send string `"null"` or `null` value, *(lower)*
 
 ## Customize default configuration
 
-You can customize the default configuration with `paginate.Config` struct. 
+You can customize the default configuration with `paginate_gorm.Config` struct. 
 
 ```go
-pg := paginate.New(&paginate.Config{
+pg := paginate_gorm.New(&paginate_gorm.Config{
     DefaultSize: 50,
 })
 ```
@@ -565,7 +565,7 @@ override := func(article *Article) {
 var articles []Article
 model := db.Joins("User").Model(&Article{})
 
-pg := paginate.New()
+pg := paginate_gorm.New()
 result := pg.Response(model, httpRequest, &articles)
 for index := range articles {
     override(&articles[index])
@@ -622,11 +622,11 @@ page := pg.With(model).
 ## Dynamic field selector
 If the request contains query parameter `fields` (eg: `?fieilds=name,id`), then the response will show only `name` and `id`. To activate this feature, please set `FieldSelectorEnabled` to `true`.
 ```go
-config := paginate.Config{
+config := paginate_gorm.Config{
     FieldSelectorEnabled: true,
 }
 
-pg := paginate.New(config)
+pg := paginate_gorm.New(config)
 ```
 
 ## Speed up response with cache
@@ -645,7 +645,7 @@ func main() {
     adapterConfig := gocache.InMemoryCacheConfig{
         ExpiresIn: 1 * time.Hour,
     }
-    pg := paginate.New(&paginate.Config{
+    pg := paginate_gorm.New(&paginate_gorm.Config{
         CacheAdapter: gocache.NewInMemoryCache(adapterConfig),
     })
 
@@ -670,7 +670,7 @@ func main() {
         Directory: "/writable/path/to/my-cache-dir",
         ExpiresIn: 1 * time.Hour,
     }
-    pg := paginate.New(&paginate.Config{
+    pg := paginate_gorm.New(&paginate_gorm.Config{
         CacheAdapter: gocache.NewDiskCache(adapterConfig),
     })
 
@@ -702,7 +702,7 @@ func main() {
         Client:    client,
         ExpiresIn: 1 * time.Hour,
     }
-    pg := paginate.New(&paginate.Config{
+    pg := paginate_gorm.New(&paginate_gorm.Config{
         CacheAdapter: cache.NewRedisCache(adapterConfig),
     })
 
@@ -740,7 +740,7 @@ func main() {
         Index:     "exampleproject",
         ExpiresIn: 1 * time.Hour,
     }
-    pg := paginate.New(&paginate.Config{
+    pg := paginate_gorm.New(&paginate_gorm.Config{
         CacheAdapter: cache.NewElasticCache(adapterConfig),
     })
 
@@ -870,4 +870,4 @@ type User struct {
 
 ## License
 
-Published under the [MIT License](https://github.com/arpit9616/paginate/blob/main/LICENSE).
+Published under the [MIT License](https://github.com/arpit9616/paginate_gorm/blob/main/LICENSE).
