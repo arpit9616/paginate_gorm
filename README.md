@@ -3,7 +3,9 @@
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/arpit9616/paginate_gorm)](https://github.com/arpit9616/paginate_gorm/releases)
 
-Simple way to paginate_gorm [Gorm](https://github.com/go-gorm/gorm) result. **paginate_gorm** is compatible with [net/http](https://golang.org/pkg/net/http/) and [fasthttp](https://github.com/valyala/fasthttp). This library also supports many frameworks are based on net/http or fasthttp. Slightly improved version of [morkid/paginate](https://github.com/morkid/paginate).
+Simple way to paginate [Gorm](https://github.com/go-gorm/gorm) result. [paginate_gorm](https://github.com/arpit9616/paginate_gorm) is compatible with [net/http](https://golang.org/pkg/net/http/) and [fasthttp](https://github.com/valyala/fasthttp). This library also supports many frameworks are based on [net/http](https://golang.org/pkg/net/http/) or [fasthttp](https://github.com/valyala/fasthttp).
+
+This library is a slightly improved version of [morkid/paginate](https://github.com/morkid/paginate).
 
 ## Table Of Contents
 - [Installation](#installation)
